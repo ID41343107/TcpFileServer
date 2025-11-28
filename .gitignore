@@ -80,8 +80,5 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 /build*/
-
-# Qt build artifacts
-TcpFileServer
+TcpFileSender
 moc_predefs.h
-_codeql_detected_source_root
