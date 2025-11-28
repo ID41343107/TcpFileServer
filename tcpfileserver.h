@@ -19,8 +19,8 @@ public slots:
     void acceptConnection();
     void updateServerProgress();
     void displayError(QAbstractSocket::SocketError socketError);
-\private:
-    QProgressBar *server ProgressBar;
+private:
+    QProgressBar *serverProgressBar;
     QLabel *serverStatusLabel;
     QPushButton *startButton;
     QPushButton *quitButton;
