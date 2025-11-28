@@ -11,7 +11,7 @@ TcpFileServer::TcpFileServer(QWidget *parent)
     startButton = new QPushButton(tr("接收"));
     quitButton = new QPushButton (tr("退出"));
     buttonBox = new QDialogButtonBox;
-    buttonBox->addButton (startButton, DialogButtonBox:: ActionRole);
+    buttonBox->addButton (startButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton (quitButton, QDialogButtonBox:: RejectRole);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -25,7 +25,7 @@ TcpFileServer::TcpFileServer(QWidget *parent)
     connect (quitButton, SIGNAL (clicked()), this, SLOT (close()));
     connect (&tcpServer, SIGNAL (newConnection()), this, SLOT (acceptConnection()));
     connect (&tcpServer, SIGNAL (acceptError (QAbstractSocket::SocketError)),this,
-    SLOT (displayError (QAbstractSocket:: SocketError));
+    SLOT (displayError (QAbstractSocket::SocketError)));
 }
 
 TcpFileServer::~TcpFileServer() {}
@@ -42,7 +42,7 @@ void TcpFileServer::start()
                                                                     tr("無法啟動伺服器: %1.").arg (tcpServer.errorString()),
                                                                     QMessageBox:: Retry | QMessageBox::Cancel);
 
-        if (get == QMessageBox:: Cancel) return;
+        if (ret == QMessageBox::Cancel) return;
     }
     serverStatusLabel->setText(tr("監聽中..."));
 }
@@ -94,7 +94,7 @@ void TcpFileServer::updateServerProgress()
 
     serverProgressBar->setMaximum (totalBytes);
     serverProgressBar->setValue (byteReceived);
-    qDebug() <<< byteReceived;
+    qDebug() << byteReceived;
     serverStatusLabel->setText(tr("已接收 %1 Bytes")
                                    .arg (byteReceived));
 
@@ -107,9 +107,9 @@ void TcpFileServer::updateServerProgress()
         start();
     }
 }
-void displayError (QAbstractSocket::SocketError socketError)
+void TcpFileServer::displayError (QAbstractSocket::SocketError socketError)
 {
-    if (socketError QTcpSocket:: RemoteHostClosedError)
+    if (socketError == QTcpSocket::RemoteHostClosedError)
         return;
     QMessageBox::information(this,
                              tr("網絡錯誤"),
